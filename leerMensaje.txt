@@ -1,0 +1,80 @@
+//Leo el teclado y guardo en la memoria el mensaje ingresado. 
+//modo de uso: echo "hola como estas" | ./leerMensaje > out.txt ; cat out.txt
+//----------------------------------------------------------
+.data
+mensaje: .ascii "Ingrese una letra por favor: "
+longitudMensaje = . - mensaje
+
+mensaje2: .ascii "Ud. ha ingresado: "
+longitudMensaje2 = . - mensaje2
+
+enter: .ascii "\n"
+
+inputUsuario:  .asciz "                                                                                                   " //por defecto puede ser arriba w
+longitudInputUsuario = . - inputUsuario
+.text
+//----------------------------------------------------------
+leerMensaje:
+.fnstart
+    //Parametros inputs: no tiene
+    //Parametros output: 
+    //r0=char leido
+        
+    mov r7, #3    // Lectura x teclado
+    mov r0, #0      // Ingreso de cadena
+
+    ldr r2, =longitudInputUsuario // Leer # caracteres
+    ldr r1, =inputUsuario // donde se guarda la cadena ingresada
+    swi 0        // SWI, Software interrup
+    ldr r0, [r1] 
+
+    bx lr //volvemos a donde nos llamaron
+.fnend
+//----------------------------------------------------------
+imprimirString:
+      .fnstart
+      //Parametros inputs:
+      //r1=puntero al string que queremos imprimir
+      //r2=longitud de lo que queremos imprimir
+      mov r7, #4 // Salida por pantalla  
+      mov r0, #1      // Indicamos a SWI que sera una cadena           
+      swi 0    // SWI, Software interrup
+      bx lr //salimos de la funcion mifuncion
+      .fnend
+//----------------------------------------------------------
+newLine:
+      .fnstart
+      push {lr}
+      mov r2, #1 //Tamaño de la cadena
+      ldr r1, =enter   //Cargamos en r1 la direccion del mensaje
+      bl imprimirString
+      pop {lr}
+      bx lr //salimos de la funcion mifuncion            
+      .fnend
+//----------------------------------------------------------
+
+.global main 
+main:
+    
+    //Imprimir por pantalla "Ingresar letra!:"
+    //ldr r2, =longitudMensaje //Tamaño de la cadena
+    //ldr r1, =mensaje   //Cargamos en r1 la direccion del mensaje
+    //bl imprimirString
+    
+    //leemos la tecla
+    bl leerMensaje
+
+    //Imprimir por pantalla "Ud. ha ingresado:"
+    ldr r2, =longitudMensaje2 //Tamaño de la cadena
+    ldr r1, =mensaje2   //Cargamos en r1 la direccion del mensaje
+    bl imprimirString
+
+    //Imprimir letra ingresada"
+    ldr r2, =longitudInputUsuario // Leer # caracteres
+    ldr r1, =inputUsuario    //Cargamos en r1 la direccion del mensaje
+    bl imprimirString
+
+    bl newLine    // Para acomodar el prompt al terminar el programa    
+    mov r7, #1    // Salida al sistema
+    swi 0
+

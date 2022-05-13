@@ -1,0 +1,39 @@
+main() {
+	saludar= mostrar un saludo al usuario
+	leerInput= leer input del usuario
+	mostrarInput = Muestra el input que ingreso el usuario
+
+	extraerMensaje= extraer mensaje de input ingresado
+	extraerClave= extraer clave de input ingresado
+	extraerOpcion= extraer opción de input ingresado
+	extraerParidad= extrae la paridad ingresada por el usuario si corresponde
+
+	mostrarMensaje= mostrar solamente el mensaje
+	mostrarClave= mostrar solamente la clave
+	mostrarOpcion= mostrar solamente la opcion
+
+	opcionElegida: { /*comparar la opcion con una c o una d
+
+	if opcion==’c’ 
+		asciiAEntero= Convertir la clave de caracter a decimal
+		mostrarMensajeProc= codificar el mensaje y contar las letras procesadas
+		bitDeParidad = guardar y mostrar un 0 o un 1 dependiendo de la cantidad de letras procesadas
+		cantidadLetrasProc= guardar la cantidad de letras procesadas en forma de caracter
+		Imprimir mostrarMensajeProc
+		Imprimir bitDeParidad
+		Imprimir cantidadLetrasProc
+		finPrograma
+
+	if opcion==’d’ 
+		mostrarMensajeProc= decodificar el mensaje y contar las letras procesadas
+		cantidadLetrasProc= guardar la cantidad de letras procesadas en forma de caracter
+		paridadAEntero= convierte la paridad ingresada por el usuario en un decimal
+		bitDeParidadDeco = guardar un 0 o un 1 dependiendo de la cantidad de letras procesadas
+	
+		if paridadAEntero == bitDeParidadDeco
+			Imprimir mostrarMensajeProc 
+			Imprimir cantidadLetrasProc
+		else mostrarErrorParidad
+		finPrograma
+	}
+}
